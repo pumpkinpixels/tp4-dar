@@ -19,13 +19,11 @@ public class chatserver {
             String message = new String(packet.getData(), 0, packet.getLength());
             System.out.println("From " + sender + " -> " + message);
 
-            // 1. Register the sender if not already known
             if (!clients.contains(sender)) {
                 clients.add(sender);
                 System.out.println("New client registered: " + sender);
             }
 
-            // 2. Forward to all the others
             byte[] data = message.getBytes();
             for (SocketAddress client : clients) {
                 if (!client.equals(sender)) {

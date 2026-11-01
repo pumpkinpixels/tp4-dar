@@ -12,7 +12,6 @@ public class chatclient {
         DatagramSocket socket = new DatagramSocket();
         InetAddress serverAddress = InetAddress.getByName("localhost");
 
-        // Thread that receives messages
         Thread receiver = new Thread(() -> {
             byte[] buffer = new byte[1024];
             try {
@@ -26,13 +25,11 @@ public class chatclient {
                 System.out.println("Receiver stopped.");
             }
         });
-        receiver.setDaemon(true); // stops automatically when the program ends
+        receiver.setDaemon(true);
         receiver.start();
 
-        // Send a first message so the server registers this client
         send(socket, serverAddress, "[" + username + "] joined the chat");
 
-        // Main thread: read keyboard and send
         while (true) {
             String text = sc.nextLine();
             if (text.equalsIgnoreCase("exit")) break;
